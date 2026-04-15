@@ -1,0 +1,41 @@
+{
+  "version": "v1",
+  "algorithm": "RandomForestClassifier",
+  "trained_at": "2026-04-14T09:38:47.054958",
+  "dataset": "iris",
+  "accuracy": 0.9,
+  "cv_mean": 0.95,
+  "cv_std": 0.0167,
+  "avg_confidence": 0.9383,
+  "n_estimators": 100,
+  "train_samples": 120,
+  "test_samples": 30,
+  "features": {
+    "count": 4,
+    "names": [
+      "sepal_length",
+      "sepal_width",
+      "petal_length",
+      "petal_width"
+    ]
+  },
+  "classes": {
+    "count": 3,
+    "names": [
+      "setosa",
+      "versicolor",
+      "virginica"
+    ],
+    "mapping": {
+      "0": "setosa",
+      "1": "versicolor",
+      "2": "virginica"
+    }
+  },
+  "feature_importances": {
+    "sepal_length": 0.1163,
+    "sepal_width": 0.015,
+    "petal_length": 0.4315,
+    "petal_width": 0.4372
+  }
+}

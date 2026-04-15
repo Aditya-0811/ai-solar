@@ -1,0 +1,21 @@
+# Virtual environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment secrets
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
