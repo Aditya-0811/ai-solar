@@ -23,8 +23,6 @@ app.add_middleware(
     allow_origins=[
         "https://runlinc.com",
         "https://www.runlinc.com",
-        "http://localhost:8000",
-        "http://127.0.0.1:8000",
         "*"
     ],
     allow_credentials=True,
@@ -62,12 +60,34 @@ async def startup_event():
     print(f"  {settings.APP_NAME} v{settings.APP_VERSION}")
     print(f"{'='*50}")
 
+    # Auto-train model if pkl files are missing
+    # This runs on Render first boot automatically
+    import os
+    model_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "models", "model_v1.pkl"
+    )
+
+    if not os.path.exists(model_path):
+        print("  Model not found — training now...")
+        try:
+            import subprocess, sys
+            root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            subprocess.run(
+                [sys.executable, os.path.join(root, "ml", "train_model.py")],
+                check=True
+            )
+            print("  Model trained ✅")
+        except Exception as e:
+            print(f"  Training failed: {e}")
+    else:
+        print("  Model found ✅")
+
     try:
         from services.ml_service import preload_all_models
         preload_all_models()
     except Exception as e:
-        print(f"  ⚠️  Model preload warning: {e}")
+        print(f"  Model load warning: {e}")
 
-    print(f"  ✅ Server ready → http://127.0.0.1:8000")
-    print(f"  📖 Docs        → http://127.0.0.1:8000/docs")
+    print(f"  ✅ Server ready")
     print(f"{'='*50}\n")
